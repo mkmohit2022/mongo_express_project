@@ -1,0 +1,399 @@
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 80%;
+      margin: 0 auto;
+    }
+    .header {
+      background-color: #ffffff;
+      padding: 20px;
+      /* text-align: center; */
+      border-radius: 15px;
+      height: auto
+    }
+    .header h1 {
+      font-family: Arial;
+      font-size: 36px;
+      color: #333333;
+    }
+    .header p {
+      font-family: Arial;
+      font-size: 15px;
+      color: #666666;
+    }
+    .calendar {
+      
+      grid-template-columns: repeat(7, 1fr);
+      grid-template-rows: repeat(5, 1fr);
+      gap: 1px;
+     
+    }
+    .day {
+        display: flex;
+        flex-direction: row;
+      background-color: #ffffff;
+      border: 1px solid #cccccc;
+      padding: 10px;
+      border-radius: 15px;
+    }
+    .book {
+        float: left;
+      background-color: #ffffff;
+      border: 1px solid #cccccc left;
+      width : 100%;
+      
+    }
+    .filters {
+        border-radius: 16px;
+      background-color: #f0f0f0;
+      width: 36%
+    }
+    .filter-button {
+            background-color: #f0f0f0;
+            border: none;
+            color: grey;
+            padding: 10px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 2px 2px;
+            border-radius: 15%;
+        }
+        .filter-button.active {
+            background-color: #ffffff;
+            border: none;
+            color: grey;
+            padding: 10px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 2px 2px;
+            border-radius: 15%;
+        }
+        .filter-button:hover {
+        background-color: #ddd;
+        }
+    .day h2 {
+      font-family: Arial;
+      font-size: 24px;
+      color: #333333;
+    }
+    .day ul {
+      list-style-type: none;
+    }
+    .day li {
+      font-family: Arial;
+      font-size: 16px;
+      color: #333333;
+      margin-bottom: 5px;
+    }
+    .day li span {
+      font-weight: bold;
+      font-size: 15px;
+    }
+    
+    .day select {
+        display: block;
+      width: 20%;
+      height: 30px;
+      margin-left: 70%;
+      margin-right: auto;
+      background-color: #f0f0f0;
+      color: #000000;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+      font-size: 15px;
+    }
+    .day select:hover {
+      display: block;
+      width: 20%;
+      height: 30px;
+      margin-left: 70%;
+      margin-right: auto;
+      background-color: #000000;
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+    }
+    .day option {
+      display: block;
+      width: 20%;
+      height: 30px;
+      margin-left: 70%;
+      margin-right: auto;
+      background-color: #ffffff;
+      color: #000000;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+      font-family: Arial;
+      font-size: 12px;
+    }
+    .day option:hover {
+      display: block;
+      width: 20%;
+      height: 30px;
+      margin-left: 70%;
+      margin-right: auto;
+      background-color: grey;
+      color: #000000;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+      font-family: Arial;
+      font-size: 12px;
+    }
+    
+  </style>
+</head>
+<body bgcolor="#f0f0f0" onload="fetchUpcoming()">
+    <br><br> <br> <br><br> <br>
+  <div class="container">
+    <div class="header">
+      <%= appt %>
+        <h1>Bookings</h1>
+        <br>
+        <p>See your scheduled events from your calendar events links.</p>
+
+        <br>
+
+        <div class="filters">
+
+        <button class="filter-button active" onclick="dummy(`Upcoming`)" value="Upcoming">Upcoming</button>
+        <button class="filter-button" onclick="dummy(`Pending`)" value="Pending">Pending</button>
+        <button class="filter-button" onclick="dummy(`Recurring`)" value="Recurring">Recurring</button>
+        <button class="filter-button" onclick="dummy(`Past`)" value="Past">Past</button>
+        <button class="filter-button" onclick="dummy(`Cancelled`)" value="Cancelled">Cancelled</button>
+                
+        </div> 
+        <br> <br><br>
+
+        <div class="calendar">
+<!-- 
+            <div class="day">
+                <div class="book" >
+                    <h2>Wed <br> 28</h2>
+                </div>
+                
+                <div  class="book">
+                    <span> <i class="material-icons" style="font-size:15px">access_time</i> 10:00 - 10:30</span> <br><br> <p> <i class="material-icons" style="font-size:15px;color:grey">location_on</i> Online </p>
+                </div>
+
+                <div  class="book">
+                     <p> 30 min call meeting Peter <> Leslie</p>
+                </div>
+
+
+                <div class="book">
+                    
+                    <br>
+                    <select name="edit" id="edit">
+                        <option value="Edit">Edit</option>
+                        <option value="Reschedule Booking">Reschedule Booking</option>
+                        <option value="Request Reschedule">Request Reschedule</option>
+                        <option value="Edit Location">Edit Location</option>
+                        <option value="Invite People">Invite People</option>
+                        <option value="Cancel Event">Cancel Event</option>
+                        
+                      </select>
+                </div>
+                
+            </div>
+
+            <br> -->
+            
+        </div>
+
+        </div>
+  </div>
+ 
+</body>
+  
+</html>
+
+<script>
+
+var getDayName = (function(date){
+      const d = new Date(date);
+      let day = d.getDay();
+      let days=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+      return days[day]
+    })
+
+    var getDate = (function(date){
+      const d = (date).toString();
+      let dd = d.split("T");
+      let ddd = dd[0].split("-")
+      return(ddd[2])
+    })
+
+    var getTime = (function(date){
+      const d = (date).toString();
+      let dd = d.split("T");
+      let ddd = dd[1].substring(0, 5)
+      return(ddd)
+    })
+
+    var getDuration = (function (enddate, startdate) {
+   var differenceValue =((new Date(enddate)).getTime() - (new Date(startdate)).getTime()) / 1000;
+   differenceValue /= 60;
+   return Math.abs(Math.round(differenceValue));
+    });
+
+
+    var getUsers = (function(user_name_arr){
+      let arr = []
+      console.log(user_name_arr)
+      for(let i=0;i<user_name_arr.length;i++){
+        arr.push(user_name_arr[i]["user_name"]);
+        console.log()
+      }
+      console.log(arr)
+      return arr.join(",")
+    })
+
+
+    var url = "http://127.0.0.1:8001/allbookings?status=Upcoming";
+
+    var dummy = (function(status){
+
+      url = "http://127.0.0.1:8001/allbookings?status="+status;
+
+    var btns = document.getElementsByClassName("filter-button");
+    for (var i = 0; i < btns.length; i++) {
+      const currbutton = btns[i]
+        btns[i].addEventListener("click", function(currbutton) {
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+            
+        });
+       
+        
+      }
+
+      var calender = document.getElementsByClassName("calendar");
+      calender[0].innerHTML=``;
+
+      const xhttpr = new XMLHttpRequest(); 
+            xhttpr.open('GET', url, true); 
+              
+            xhttpr.send(); 
+              
+            xhttpr.onload = ()=> { 
+              if (xhttpr.status === 200) { 
+                  const response = JSON.parse(xhttpr.response); 
+                
+                  for(let i=0;i<response.data.length;i++){
+                    var data = response.data[i];
+                    calender[0].innerHTML += `
+            <div class="day">
+                <div class="book" >
+                    <h2>`+getDayName(data["start_time"])+` <br> `+getDate(data["start_time"])+`</h2>
+                </div>
+                
+                <div  class="book">
+                    <span> <i class="material-icons" style="font-size:15px">access_time</i> `+getTime(data["start_time"])+` - `+getTime(data["end_time"])+`</span> <br><br> <p> <i class="material-icons" style="font-size:15px;color:grey">location_on</i>`+data["location"]+`</p>
+                </div>
+
+                <div  class="book">
+                     <p> `+getDuration(data["end_time"],data["start_time"])+` min call meeting `+getUsers(data["members"])+`</p>
+                </div>
+
+
+                <div class="book">
+                    
+                    <br>
+                    <select name="edit" id="edit">
+                        <option value="Edit">Edit</option>
+                        <option value="Reschedule Booking">Reschedule Booking</option>
+                        <option value="Request Reschedule">Request Reschedule</option>
+                        <option value="Edit Location">Edit Location</option>
+                        <option value="Invite People">Invite People</option>
+                        <option value="Cancel Event">Cancel Event</option>
+                        
+                      </select>
+                </div>
+                
+            </div>
+
+            <br>`
+
+
+                  }
+              } else { 
+              } 
+            }; 
+ 
+
+    });
+
+    
+    var fetchUpcoming = (function(){
+      var calender = document.getElementsByClassName("calendar");
+
+      const xhttpr = new XMLHttpRequest(); 
+            xhttpr.open('GET', url, true); 
+              
+            xhttpr.send(); 
+              
+            xhttpr.onload = ()=> { 
+              if (xhttpr.status === 200) { 
+                  const response = JSON.parse(xhttpr.response); 
+                
+                  for(let i=0;i<response.data.length;i++){
+                    var data = response.data[i];
+                    calender[0].innerHTML += `
+            <div class="day">
+                <div class="book" >
+                    <h2>`+getDayName(data["start_time"])+` <br> `+getDate(data["start_time"])+`</h2>
+                </div>
+                
+                <div  class="book">
+                    <span> <i class="material-icons" style="font-size:15px">access_time</i> `+getTime(data["start_time"])+` - `+getTime(data["end_time"])+`</span> <br><br> <p> <i class="material-icons" style="font-size:15px;color:grey">location_on</i>`+data["location"]+`</p>
+                </div>
+
+                <div  class="book">
+                     <p> `+getDuration(data["end_time"],data["start_time"])+` min call meeting `+getUsers(data["members"])+`</p>
+                </div>
+
+
+                <div class="book">
+                    
+                    <br>
+                    <select name="edit" id="edit">
+                        <option value="Edit">Edit</option>
+                        <option value="Reschedule Booking">Reschedule Booking</option>
+                        <option value="Request Reschedule">Request Reschedule</option>
+                        <option value="Edit Location">Edit Location</option>
+                        <option value="Invite People">Invite People</option>
+                        <option value="Cancel Event">Cancel Event</option>
+                        
+                      </select>
+                </div>
+                
+            </div>
+
+            <br>`
+
+
+                  }
+              } else { 
+              } 
+            }; 
+
+    });
+    
+</script>

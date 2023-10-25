@@ -1,0 +1,17 @@
+{
+  "name": "bookings",
+  "version": "1.0.0",
+  "description": "dockvita-assignment",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest"
+  },
+  "author": "Mohit Khandelwal",
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.18.2",
+    "mongoose": "7.6.3",
+    "ejs": "3.1.9"
+  }
+}
