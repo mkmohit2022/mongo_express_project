@@ -11,10 +11,11 @@ exports.createBooking = async (booking) => {
 
 const getTime = (date) => {
   const d = (date).toString();
-  let dd = d.split("T");
-  let ddd = dd[1].split(":")
-  return(ddd)
+      let dd = d.split("T");
+      let ddd = dd[1].substring(0, 5)
+      return(ddd)
 };
+
 
 const getDate = (date) => {
   const d = (date).toString();
@@ -24,54 +25,46 @@ const getDate = (date) => {
 };
 
 exports.getSlot = async (doc_id,booking_date) => {
+
+  // sample query for updating slot_booked in db
+  // db.slot.updateOne({doc_id:"123"},{$push:{"slot_booked":{"booking_date":"2023-10-27",start_time:["12:00"]}}})
+
   const data = await Slot.findOne({doc_id:doc_id, active:true});
-  let default_slots = ["10","10.5","11","11.5","12","15","15.5","16","16.5","17","17.5"];
+  let default_slots = ["10:00","10:30","11:00","11:30","12:00","15:00","15:30","16:00","16:30","17:00","17:30"];
 
   if(data.slot_booked.length==0 && data.adjusted_slot.length==0){
     return default_slots
   }
+
+  // if for any day a slot is adjusted, then there would not be any default time applicable
+  if(data.adjusted_slot.length!=0 ){
+    data.adjusted_slot.forEach(element => {
+      if(element.booking_date==booking_date){
+        default_slots = element.adjusted_start_times;
+      }
+    });
+  }
+
   if(data.slot_booked.length!=0 ){
-    data.slot_booked.forEach(element => {
+    data.slot_booked.forEach(ele => {
       if(ele.booking_date==booking_date){
         ele.start_time.forEach(time => {
-          let time_format = getTime(time);
-          if(time_format[1]=="30"){
-            let indx = default_slots.indexOf(time_format[0])
-            delete default_slots[indx+1];
-          }
-          if(time_format[1]=="00"){
-            let indx = default_slots.indexOf(time_format[0])
-            delete default_slots[indx];
-          }
-          
+          let indx = default_slots.indexOf(time)
+          default_slots.splice(indx, 1)
         });
       }
     });
   }
 
-  if(data.adjusted_slot.length!=0 ){
-    data.adjusted_slot.forEach(element => {
-      if(ele.booking_date==booking_date){
-        ele.start_time.forEach(time => {
-          let time_format = getTime(time);
-          if(time_format[1]=="30"){
-            let indx = default_slots.indexOf(time_format[0])
-            delete default_slots[indx+1];
-          }
-          if(time_format[1]=="00"){
-            let indx = default_slots.indexOf(time_format[0])
-            delete default_slots[indx];
-          }
-          
-        });
-      }
-    });
-  }
 
   return default_slots;
  
 };
 
-exports.updateSlot = async (slot) => {
-  return await Booking.create(slot);
+exports.updateSlot = async (doc_id,slot) => {
+  if(slot.slot_booked){
+    return await Booking.findOneAndUpdate({doc_id:doc_id, active:true},{$push:{slot_booked:slot.slot_booked}});
+  }
+  
+  
 };

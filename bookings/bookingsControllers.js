@@ -43,12 +43,13 @@ const getDayName = (date) => {
   return days[day]
 };
 
+// get the available slots for the input date
 exports.getSlot = async (req, res) => {
   try {
     const doc_id = req.query.doc_id;
     const booking_date = req.query.booking_date;
     if(getDayName(booking_date)=="Sun" || getDayName(booking_date)=="Sat"){
-      res.json({ data: {message:"No Slot Available"}, status: "success" });
+      return res.json({ data: {message:"No Slot Available"}, status: "success" });
     }
 
     const slots = await bookingService.getSlot(doc_id,booking_date);
@@ -60,8 +61,9 @@ exports.getSlot = async (req, res) => {
 
 exports.updateSlot = async (req, res) => {
   try {
-    const booking = await bookingService.updateSlot(req.body);
-    res.json({ data: booking, status: "success" });
+    const doc_id = req.query.doc_id;
+    const slot = await bookingService.updateSlot(doc_id,req.body);
+    res.json({ data: slot, status: "success" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

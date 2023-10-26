@@ -12,7 +12,7 @@ const router = express.Router();
 router.route("/allBookings").get(getAllBookings).post(createBooking);
 router.route("/bookings").get(getBookings);
 router.route("/slot").get(getSlot);
-router.route("/slot").post(updateSlot);
+router.route("/slot").put(updateSlot);
 
 
 module.exports = router;
