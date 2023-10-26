@@ -35,3 +35,34 @@ exports.getBookings = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+const getDayName = (date) => {
+  const d = new Date(date);
+  let day = d.getDay();
+  let days=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  return days[day]
+};
+
+exports.getSlot = async (req, res) => {
+  try {
+    const doc_id = req.query.doc_id;
+    const booking_date = req.query.booking_date;
+    if(getDayName(booking_date)=="Sun" || getDayName(booking_date)=="Sat"){
+      res.json({ data: {message:"No Slot Available"}, status: "success" });
+    }
+
+    const slots = await bookingService.getSlot(doc_id,booking_date);
+    res.json({ data: slots, status: "success" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.updateSlot = async (req, res) => {
+  try {
+    const booking = await bookingService.updateSlot(req.body);
+    res.json({ data: booking, status: "success" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
