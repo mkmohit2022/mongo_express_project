@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+// all date formats in YYYY-MM-DD 
 const slotSchema = new mongoose.Schema({
   doc_id: { type: String, required: true },
   slot_booked:{ type :[

@@ -62,9 +62,27 @@ exports.getSlot = async (doc_id,booking_date) => {
 };
 
 exports.updateSlot = async (doc_id,slot) => {
+  const curr = await Slot.findOne({doc_id:doc_id});
+  let update=true;
+  let message="";
   if(slot.slot_booked){
-    return await Booking.findOneAndUpdate({doc_id:doc_id, active:true},{$push:{slot_booked:slot.slot_booked}});
+    await Slot.updateOne({doc_id:doc_id, active:true},{$push:{"slot_booked":slot["slot_booked"]}});
+    message = "slot booked"
   }
-  
+  if(slot.adjusted_slot){
+    console.log(slot.adjusted_slot)
+    console.log(curr)
+    curr.slot_booked.forEach(element => {
+      if(element.booking_date==slot.adjusted_slot.booking_date){
+        update=false;
+        message= "Already a slot booking. Cannot Adjust"
+      }
+    });
+    if(update){
+      await Slot.updateOne({doc_id:doc_id, active:true},{$push:{"adjusted_slot":slot["adjusted_slot"]}});
+      message = "adjusted slot for this date"
+    }
+  }
+  return message
   
 };

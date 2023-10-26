@@ -34,13 +34,6 @@ const start = async () => {
       
       app.use("/", bookingRouter);
 
-      //   app.get('/bookings', (req, res) => {
-      //     const data = {
-      //       username: 'MK',
-      //   };
-      //     res.render('pages/index', data);
-      // })
-
       
 
       app.listen(PORT, () => console.log("Server started on port 8001"));

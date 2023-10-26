@@ -11,8 +11,8 @@ const router = express.Router();
 
 router.route("/allBookings").get(getAllBookings).post(createBooking);
 router.route("/bookings").get(getBookings);
-router.route("/slot").get(getSlot);
-router.route("/slot").put(updateSlot);
+router.route("/slot").get(getSlot).put(updateSlot);;
+
 
 
 module.exports = router;
